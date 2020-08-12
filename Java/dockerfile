@@ -1,0 +1,9 @@
+FROM openjdk:16-jdk-alpine AS builder
+WORKDIR /
+COPY HelloWorld.java .
+RUN javac HelloWorld.java
+
+FROM openjdk:16-jdk-alpine
+WORKDIR /
+COPY --from=builder /HelloWorld.class .
+CMD ["java", "HelloWorld"]
