@@ -35,19 +35,13 @@ docker run -it java-hello-world:latest
 
 All these builds and runs where done with where done with `docker-19.03-12-stable` under Windows 10 Proffesional.
 
+### Image size
+
 Image size was determinded with:
 
 ```shell
 docker image ls
 ```
-
-Runtime memory usage was determinded with:
-
-```shell
-docker stats
-```
-
-### Image size
 
 | Image | Size |
 |---|---|
@@ -58,6 +52,12 @@ docker stats
 | java-hello-world | 345MB |
 
 ### Container memory usage
+
+Runtime memory usage was determinded with:
+
+```shell
+docker stats
+```
 
 | Container | Memory |
 |---|---|
