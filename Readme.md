@@ -88,7 +88,7 @@ Memory was measured after running a 1000 requests against the API`s.
 | go-hello-world-api | 13MB | 7.195MiB |
 | csharp-hello-world-api | 105MB | 28.86MiB |
 | python-hello-world-api | 46.3MB | 34.7MiB |
-| java-hello-world-api |  |  |
+| java-hello-world-api | 361MB | 116MiB |
 
 ## Notes
 
