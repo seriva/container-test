@@ -8,11 +8,11 @@ Simple sample projects to showcase image size and container memory footprint for
 - Python
 - Java
 
-### `Hello, world!`
+### Hello, world!
 
 Simple `Hello, world!` examples only containing the necessary code and no additional frameworks/libaries. Only prints `Hello, world!` message and waits for key input to stop. The docker files are all multi-stage builds and use `Alphine` base images as these are small, secure and generally well maintained.
 
-### `Hello, world!` rest API
+### Hello, world! rest API
 
 Simple `Hello, world!` REST Api examples using popular libraries for the language:
 
@@ -66,7 +66,7 @@ Runtime memory usage was determinded with:
 docker stats
 ```
 
-### Image size and container memory ussage `Hello, world!`
+### Image size and container memory ussage Hello, world!
 
 Memory was measured after the `Hello, world!` message waiting for key input.
 
@@ -78,7 +78,7 @@ Memory was measured after the `Hello, world!` message waiting for key input.
 | python-hello-world | 42.7MB | 5.062MiB |
 | java-hello-world | 345MB | 11.38MiB |
 
-### Image size and container memory ussage `Hello, world!` rest API
+### Image size and container memory ussage Hello, world! rest API
 
 Memory was measured after running a 1000 requests against the API`s.
 
