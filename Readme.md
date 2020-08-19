@@ -1,6 +1,6 @@
 ## About
 
-Simple sample projects to showcase image size and container memory footprint for the following languages:
+Simple sample projects to showcase image size and container/k8s deployment memory footprint for the following languages:
 
 - Rust
 - Go
@@ -26,7 +26,7 @@ All examples expose a simple API which can be reached here:
 
 `http://127.0.0.1:8080/hello`
 
-Which will return the following JSON message:
+This will return the following JSON message:
 
 ```shell
 {
@@ -36,7 +36,7 @@ Which will return the following JSON message:
 
 The docker files are all multi-stage builds and use `Alphine` base images as these are small, secure and generally well maintained.
 
-## Building and running
+## Building and running the images/containers locally
 
 To build and run the containers you can use the snippets below from the respective folders:
 
@@ -50,9 +50,29 @@ docker build -t container-name .
 docker run -p 8080:8080 container-name:latest
 ```
 
-## Results
+## Deploying on K8s
 
-All these builds and runs where done with where done with `docker-19.03-12-stable` under Windows 10 Professional.
+For the K8s deployment, only the `Hello, world!` rest API examples where used with preprepared images which can be found here:
+
+- https://hub.docker.com/repository/docker/luukvv/rust-hello-world-api
+- https://hub.docker.com/repository/docker/luukvv/go-hello-world-api
+- https://hub.docker.com/repository/docker/luukvv/csharp-hello-world-api
+- https://hub.docker.com/repository/docker/luukvv/python-hello-world-api
+- https://hub.docker.com/repository/docker/luukvv/java-hello-world-api
+
+To deploy them you can use the `deploy.yml` files below from the respective folders:
+
+```shell
+kubectl apply -f build -t deploy.yml
+```
+
+This will create a simple Deployment with 3 replicas and a nodeport to run the requests against.
+
+## How results where gathered
+
+### Locally
+
+All local builds and runs where done with where done with `docker-19.03-12-stable` under Windows 10 Professional.
 
 Image size was determinded with:
 
@@ -60,13 +80,23 @@ Image size was determinded with:
 docker image ls
 ```
 
-Runtime memory usage was determinded with:
+Container runtime memory usage was determinded with:
 
 ```shell
 docker stats
 ```
 
-### Image size and container memory ussage `Hello, world!`
+### K8s deployment
+
+K8s deployment runtime memory usage was determinded by aggregating memory usage for each pod. The memory usage per pod was measured with the [K8s metric server](https://github.com/kubernetes-sigs/metrics-server).
+
+### Request simulation
+
+The requests against the `Hello, world!` rest API examples where executed with the `HelloWorldApi/apitest.py` python script.
+
+# Results
+
+### `Hello, world!` locally
 
 Memory was measured after the `Hello, world!` message waiting for key input.
 
@@ -78,7 +108,7 @@ Memory was measured after the `Hello, world!` message waiting for key input.
 | python-hello-world | 42.7MB | 5.062MiB |
 | java-hello-world | 345MB | 11.38MiB |
 
-### Image size and container memory ussage `Hello, world!` rest API
+### `Hello, world!` rest API locally
 
 Memory was measured after running a 1000 requests against the API`s.
 
@@ -89,6 +119,18 @@ Memory was measured after running a 1000 requests against the API`s.
 | csharp-hello-world-api | 105MB | 28.86MiB |
 | python-hello-world-api | 46.3MB | 34.7MiB |
 | java-hello-world-api | 361MB | 116MiB |
+
+### `Hello, world!` K8s deployment
+
+Memory was measured after running a 10000 requests against the API`s through a nodeport
+
+| Image | Size | Memory usage for 3 pods |
+|---|---|---|
+| rust-hello-world-api | 10.9MB | 3MiB |
+| go-hello-world-api | 13MB | 21MiB |
+| csharp-hello-world-api | 105MB | 96MiB |
+| python-hello-world-api | 46.3MB | 73MiB |
+| java-hello-world-api | 361MB | 363MiB |
 
 ## Notes
 
